@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import de.dennisguse.opentracks.R;
 
+// This is the code for the activity_maintenance_info.xml
 public class MaintenanceInfo extends AppCompatActivity {
 
     @Override
