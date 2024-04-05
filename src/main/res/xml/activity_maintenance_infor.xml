@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Sharpening Information">
+    <PreferenceCategory android:title="@string/sharpening_text">
 
         <EditTextPreference
             android:key="last_sharpening_date"
@@ -39,7 +39,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Waxing Information">
+    <PreferenceCategory android:title="@string/waxing_text">
         <EditTextPreference
             android:key="last_waxing_date"
             android:title="@string/settings_maintenance_last_wax_date"

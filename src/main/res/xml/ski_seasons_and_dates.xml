@@ -1,4 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-  
+
+    <PreferenceCategory android:title="@string/ski_season_text">
+
+        <EditTextPreference
+            android:key="ski_season_key"
+            android:title="@string/ski_season_year"
+            android:dialogTitle="@string/dialogue_ski_season_year"
+            android:inputType="date"/>
+
+        <ListPreference
+            android:key="dates_sesions_key"
+            android:title="24/12/2023"
+            />
+
+        <ListPreference
+            android:key="km_key"
+            android:title="12 KM"
+            />
+
+        <ListPreference
+            android:key="dates_sesions_key"
+            android:title="25/12/2023"
+            />
+
+        <ListPreference
+            android:key="km_key"
+            android:title="13 KM"
+            />
+
+        <ListPreference
+            android:key="dates_sesions_key"
+            android:title="25/01/2024"
+            />
+
+        <ListPreference
+            android:key="km_key"
+            android:title="9 KM"
+            />
+
+
+    </PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>

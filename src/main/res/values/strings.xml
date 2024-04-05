@@ -405,6 +405,13 @@ limitations under the License.
     <string name="settings_night_mode_option_day">Day</string>
     <string name="settings_night_mode_option_night">Night</string>
     <!-- Custom Names for Group 2 Setting Page -->
+    <string name="sharpening_text">Sharpening Information</string>
+    <string name="waxing_text">Waxing Information</string>
+
+    <string name="ski_season_text">Ski Seasons And Dates</string>
+    <string name="ski_season_year">Chose A Year</string>
+    <string name="dialogue_ski_season_year">Year of the season (YYYY):</string>
+
 
     <string name="settings_ski_season">Ski History</string>
     <string name="settings_ski_session">Ski sessions for each season</string>
