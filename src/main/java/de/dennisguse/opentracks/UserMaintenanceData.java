@@ -1,25 +1,25 @@
 package de.dennisguse.opentracks;
 import java.time.LocalDate;
 
-//public class UserMaintenanceData {
-//    private int sharpeningInterval;
-//    private double baseAngle;
-//    private double edgeAngle;
-//    private LocalDate lastSharpeningDate;
-//    private int waxingInterval;
-//    private String waxType;
-//    private LocalDate lastWaxingDate;
-//
-//    // default constructor
-//    public UserMaintenanceData() {
-//        this.sharpeningInterval = 0;
-//        this.baseAngle = 0.0;
-//        this.edgeAngle = 0.0;
-//        this.lastSharpeningDate = lastSharpeningDate;
-//        this.waxingInterval = waxingInterval;
-//        this.waxType = waxType;
-//        this.lastWaxingDate = lastWaxingDate;
-//    }
+public class UserMaintenanceData {
+    private int sharpeningInterval;
+    private double baseAngle;
+    private double edgeAngle;
+    private LocalDate lastSharpeningDate;
+    private int waxingInterval;
+    private String waxType;
+    private LocalDate lastWaxingDate;
+
+    // default constructor
+    public UserMaintenanceData() {
+        this.sharpeningInterval = 0;
+        this.baseAngle = 0.0;
+        this.edgeAngle = 0.0;
+        this.lastSharpeningDate = LocalDate.now();
+        this.waxingInterval = 0;
+        this.waxType = "none";
+        this.lastWaxingDate = LocalDate.now();
+    }
 
     // Constructor
     public UserMaintenanceData(int sharpeningInterval, double baseAngle, double edgeAngle, LocalDate lastSharpeningDate, int waxingInterval, String waxType, LocalDate lastWaxingDate) {
