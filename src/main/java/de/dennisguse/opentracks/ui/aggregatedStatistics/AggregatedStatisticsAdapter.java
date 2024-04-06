@@ -18,6 +18,7 @@ import de.dennisguse.opentracks.GlobalUserData;
 import de.dennisguse.opentracks.R;
 import de.dennisguse.opentracks.UserMaintenanceData;
 import de.dennisguse.opentracks.data.models.ActivityType;
+import de.dennisguse.opentracks.data.models.Distance;
 import de.dennisguse.opentracks.data.models.DistanceFormatter;
 import de.dennisguse.opentracks.data.models.SpeedFormatter;
 import de.dennisguse.opentracks.data.models.Track;
@@ -60,35 +61,57 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
             viewHolder.setPace(aggregatedStatistic);
         }
 
-        // *************************************************************************************
-        AggregatedStatistics.AggregatedStatistic skiTracks = aggregatedStatistics.get("skiing");
-        ArrayList<TrackStatistics> listOfSkiTracks = skiTracks.getListOfTracks();
 
+        // *************************************************************************************
+        // Group 2 code
         GlobalUserData globalUserData = GlobalUserData.getInstance(context);
 
-        TrackStatistics trackStatistics = aggregatedStatistics.get("skiing").getTrackStatistics();
-        double totalDistance = trackStatistics.getTotalDistance().toKM();
+        Instant lastSharpeningDate = globalUserData.getLastSharpeningDate();
+        Instant lastWaxingDate = globalUserData.getLastWaxingDate();
 
-        DummyDataGenerator dummyData = new DummyDataGenerator();
-        UserMaintenanceData userMaintenanceData = new UserMaintenanceData();
+        // get all recorded skiing tracks
+        ArrayList<TrackStatistics> listOfTracks = aggregatedStatistics.get("skiing").getListOfTracks();
 
-        TextView sharpeningPercentageValue = holder.itemView.findViewById(R.id.sharpening_percentage_value);
-        sharpeningPercentageValue.setText(Double.toString(dummyData.getSharpeningPercentageValue()));
+        Distance distanceSinceLastSharpening = new Distance(0);
+        Distance distanceSinceLastWaxing = new Distance(0);
 
-        TextView waxingPercentageValue = holder.itemView.findViewById(R.id.waxing_percentage_value);
-        waxingPercentageValue.setText(Double.toString(dummyData.getWaxingPercentageValue()));
+        // for each track, if time of recording >= time of last waxing/sharpening, increment distance
+        // since last waxing/sharpening
+        for (TrackStatistics track : listOfTracks) {
+            if (track.getStartTime().equals(lastSharpeningDate) ||
+                track.getStartTime().isAfter(lastSharpeningDate)) {
+                distanceSinceLastSharpening = distanceSinceLastSharpening.plus(track.getTotalDistance());
+            }
+
+            if (track.getStartTime().equals(lastWaxingDate) ||
+                track.getStartTime().isAfter(lastWaxingDate)) {
+                distanceSinceLastWaxing = distanceSinceLastWaxing.plus(track.getTotalDistance());
+            }
+        }
+
+        double kmSinceLastSharpening = distanceSinceLastSharpening.toKM();
+        double kmSinceLastWaxing = distanceSinceLastWaxing.toKM();
 
         TextView kmSinceLastSharpeningValue = holder.itemView.findViewById(R.id.km_since_last_sharpening_value);
-        kmSinceLastSharpeningValue.setText(Double.toString(totalDistance));
+        kmSinceLastSharpeningValue.setText(Double.toString(kmSinceLastSharpening));
 
         TextView kmSinceLastWaxingValue = holder.itemView.findViewById(R.id.km_since_last_waxing_value);
-        kmSinceLastWaxingValue.setText(Double.toString(totalDistance));
+        kmSinceLastWaxingValue.setText(Double.toString(kmSinceLastWaxing));
 
-        TextView unit = holder.itemView.findViewById(R.id.aggregated_stats_waxing_unit);
-        unit.setText(dummyData.getUnit());
+        double percentageOfSharpeningInterval = kmSinceLastSharpening / globalUserData.getSharpeningInterval();
+        double percentageOfWaxingInterval = kmSinceLastWaxing / globalUserData.getWaxingInterval();
 
-        TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
-        unit2.setText(dummyData.getUnit());
+        TextView sharpeningPercentageValue = holder.itemView.findViewById(R.id.sharpening_percentage_value);
+        sharpeningPercentageValue.setText(Double.toString(percentageOfSharpeningInterval));
+
+        TextView waxingPercentageValue = holder.itemView.findViewById(R.id.waxing_percentage_value);
+        waxingPercentageValue.setText(Double.toString(percentageOfWaxingInterval));
+
+//        TextView unit = holder.itemView.findViewById(R.id.aggregated_stats_waxing_unit);
+//        unit.setText(dummyData.getUnit());
+//
+//        TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
+//        unit2.setText(dummyData.getUnit());
 
         // *******************************************************************************************
     }
