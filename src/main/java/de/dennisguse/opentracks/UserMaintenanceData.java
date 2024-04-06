@@ -72,9 +72,9 @@ public class UserMaintenanceData {
     public void setWaxingInterval(int waxingInterval) {
         this.waxingInterval = waxingInterval;
     }
-public String getWaxType() {
-        return waxType;
-    }
+    public String getWaxType() {
+            return waxType;
+        }
 
     public void setWaxType(String waxType) {
         this.waxType = waxType;
