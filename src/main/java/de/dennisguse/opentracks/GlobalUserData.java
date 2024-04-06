@@ -25,6 +25,9 @@ public class GlobalUserData {
     private String lastWaxingDate;
     private static final String LAST_WAXING_DATE = "lastWaxingDate";
 
+    private String unit;
+    private static final String UNIT = "unit";
+
     private GlobalUserData(Context context) {
         Instant currentTime = Instant.now(); // current time default for sharpening/waxing dates
 
@@ -36,6 +39,7 @@ public class GlobalUserData {
         waxingInterval = sharedPreferences.getInt(WAXING_INTERVAL, 0);
         waxType = sharedPreferences.getString(WAX_TYPE, "");
         lastWaxingDate = sharedPreferences.getString(LAST_WAXING_DATE, currentTime.toString());
+        unit = sharedPreferences.getString(UNIT, "km");
 
     }
 
@@ -100,6 +104,11 @@ public class GlobalUserData {
         update_state(context, LAST_WAXING_DATE, newLastWaxingDate.toString());
     }
 
+    public void setUnit(Context context, String newUnit) {
+        unit = newUnit;
+        update_state(context, UNIT, newUnit);
+    }
+
     public int getSharpeningInterval() { return sharpeningInterval; }
     public float getBaseAngle() { return baseAngle; }
     public float getEdgeAngle() { return edgeAngle; }
@@ -110,4 +119,6 @@ public class GlobalUserData {
     public String getWaxType() { return waxType; }
 
     public Instant getLastWaxingDate() { return Instant.parse(lastWaxingDate); }
+
+    public String getUnit() { return unit; }
 }

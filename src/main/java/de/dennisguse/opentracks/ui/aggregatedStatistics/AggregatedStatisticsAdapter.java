@@ -107,11 +107,11 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView waxingPercentageValue = holder.itemView.findViewById(R.id.waxing_percentage_value);
         waxingPercentageValue.setText(Double.toString(percentageOfWaxingInterval));
 
-//        TextView unit = holder.itemView.findViewById(R.id.aggregated_stats_waxing_unit);
-//        unit.setText(dummyData.getUnit());
-//
-//        TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
-//        unit2.setText(dummyData.getUnit());
+        TextView unit = holder.itemView.findViewById(R.id.aggregated_stats_waxing_unit);
+        unit.setText(globalUserData.getUnit());
+
+        TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
+        unit2.setText(globalUserData.getUnit());
 
         // *******************************************************************************************
     }
