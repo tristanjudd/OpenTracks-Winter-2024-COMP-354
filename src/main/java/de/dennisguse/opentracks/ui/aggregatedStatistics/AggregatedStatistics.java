@@ -58,9 +58,17 @@ public class AggregatedStatistics {
         private final TrackStatistics trackStatistics;
         private int countTracks = 1;
 
+        // My code
+        private ArrayList<TrackStatistics> listOfTracks;
+
         public AggregatedStatistic(String activityTypeLocalized, TrackStatistics trackStatistics) {
             this.activityTypeLocalized = activityTypeLocalized;
             this.trackStatistics = trackStatistics;
+
+            // My code
+            this.listOfTracks = new ArrayList<TrackStatistics>();
+            this.listOfTracks.add(trackStatistics);
+
         }
 
         public String getActivityTypeLocalized() {
@@ -78,6 +86,12 @@ public class AggregatedStatistics {
         void add(TrackStatistics statistics) {
             trackStatistics.merge(statistics);
             countTracks++;
+
+            // My code
+            listOfTracks.add(statistics);
         }
+
+        // My code
+        public ArrayList<TrackStatistics> getListOfTracks() {return listOfTracks;}
     }
 }

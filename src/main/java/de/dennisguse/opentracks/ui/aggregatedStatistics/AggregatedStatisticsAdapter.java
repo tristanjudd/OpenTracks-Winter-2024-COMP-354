@@ -1,6 +1,7 @@
 package de.dennisguse.opentracks.ui.aggregatedStatistics;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,16 +10,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.dennisguse.opentracks.GlobalUserData;
 import de.dennisguse.opentracks.R;
+import de.dennisguse.opentracks.UserMaintenanceData;
 import de.dennisguse.opentracks.data.models.ActivityType;
 import de.dennisguse.opentracks.data.models.DistanceFormatter;
 import de.dennisguse.opentracks.data.models.SpeedFormatter;
+import de.dennisguse.opentracks.data.models.Track;
 import de.dennisguse.opentracks.databinding.AggregatedStatsListItemBinding;
 import de.dennisguse.opentracks.settings.PreferencesUtils;
 import de.dennisguse.opentracks.settings.UnitSystem;
+import de.dennisguse.opentracks.stats.TrackStatistics;
 import de.dennisguse.opentracks.util.StringUtils;
 
 public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -26,9 +32,13 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
     private AggregatedStatistics aggregatedStatistics;
     private final Context context;
 
+    // My code
+    int uselessCounter;
+
     public AggregatedStatisticsAdapter(Context context, AggregatedStatistics aggregatedStatistics) {
         this.context = context;
         this.aggregatedStatistics = aggregatedStatistics;
+
     }
 
     @NonNull
@@ -50,7 +60,17 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
             viewHolder.setPace(aggregatedStatistic);
         }
 
+        // *************************************************************************************
+        AggregatedStatistics.AggregatedStatistic skiTracks = aggregatedStatistics.get("skiing");
+        ArrayList<TrackStatistics> listOfSkiTracks = skiTracks.getListOfTracks();
+
+        GlobalUserData globalUserData = GlobalUserData.getInstance(context);
+
+        TrackStatistics trackStatistics = aggregatedStatistics.get("skiing").getTrackStatistics();
+        double totalDistance = trackStatistics.getTotalDistance().toKM();
+
         DummyDataGenerator dummyData = new DummyDataGenerator();
+        UserMaintenanceData userMaintenanceData = new UserMaintenanceData();
 
         TextView sharpeningPercentageValue = holder.itemView.findViewById(R.id.sharpening_percentage_value);
         sharpeningPercentageValue.setText(Double.toString(dummyData.getSharpeningPercentageValue()));
@@ -59,10 +79,10 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         waxingPercentageValue.setText(Double.toString(dummyData.getWaxingPercentageValue()));
 
         TextView kmSinceLastSharpeningValue = holder.itemView.findViewById(R.id.km_since_last_sharpening_value);
-        kmSinceLastSharpeningValue.setText(Double.toString(dummyData.getKmSinceLastSharpeningValue()));
+        kmSinceLastSharpeningValue.setText(Double.toString(totalDistance));
 
         TextView kmSinceLastWaxingValue = holder.itemView.findViewById(R.id.km_since_last_waxing_value);
-        kmSinceLastWaxingValue.setText(Double.toString(dummyData.getKmSinceLastWaxingValue()));
+        kmSinceLastWaxingValue.setText(Double.toString(totalDistance));
 
         TextView unit = holder.itemView.findViewById(R.id.aggregated_stats_waxing_unit);
         unit.setText(dummyData.getUnit());
@@ -70,6 +90,7 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
         unit2.setText(dummyData.getUnit());
 
+        // *******************************************************************************************
     }
 
     @Override
