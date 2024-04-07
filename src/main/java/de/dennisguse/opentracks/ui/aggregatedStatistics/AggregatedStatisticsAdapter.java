@@ -28,6 +28,12 @@ import de.dennisguse.opentracks.settings.UnitSystem;
 import de.dennisguse.opentracks.stats.TrackStatistics;
 import de.dennisguse.opentracks.util.StringUtils;
 
+import androidx.core.app.NotificationManagerCompat;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
+import androidx.core.app.NotificationCompat;
+
 public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private AggregatedStatistics aggregatedStatistics;
@@ -113,8 +119,94 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         TextView unit2 = holder.itemView.findViewById(R.id.aggregated_stats_sharpening_unit);
         unit2.setText(globalUserData.getUnit());
 
+        //The Thresholds for sharpening and waxing interval
+        //setting sharpening Threshold to 0 for testing
+        double sharpeningThreshold = 0;
+        double waxingThreshold = 100;
+
+        // Check if you've reached the sharpening threshold
+        if (percentageOfSharpeningInterval >= sharpeningThreshold) {
+            showSharpeningNotification(percentageOfSharpeningInterval);
+        }
+
+        // Check if you've reached the waxing threshold
+        if (percentageOfWaxingInterval >= waxingThreshold) {
+            showWaxingNotification(percentageOfWaxingInterval);
+        }
+
         // *******************************************************************************************
     }
+
+    // *************************************************************************************
+    // Group 2 code
+
+    //New method for display the notification when the sharpening interval is reached
+    private void showSharpeningNotification(double percentageOfSharpeningInterval) {
+        // Unique ID for our notification
+        int notificationId = 1;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Sharpening channel"; // You should use a R.string value for this in the real app
+            String description = "Notifications for ski sharpening"; // You should use a R.string value for this in the real app
+            int importance = NotificationManager.IMPORTANCE_HIGH; // High importance for heads-up notification
+            NotificationChannel channel = new NotificationChannel("channel_sharpening", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_sharpening")
+                .setSmallIcon(R.drawable.ic_activity_skiing_24dp)
+                .setContentTitle("Sharpening Alert")
+                .setContentText(percentageOfSharpeningInterval + "% reached of the sharpening interval")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setAutoCancel(true);
+
+        //codes from ChatGPT
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
+            notificationManager.notify(notificationId, builder.build());
+        } catch (SecurityException e) {
+            // Handle the security exception
+            Log.e("Notification Error", "SecurityException: Could not display notification.", e);
+        }
+    }
+
+    //New method for display the notification when the waxing interval is reached
+    private void showWaxingNotification(double percentageOfWaxingInterval) {
+        // Unique ID for our notification
+        int notificationId = 2;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Waxing channel"; // You should use a R.string value for this in the real app
+            String description = "Notifications for ski waxing"; // You should use a R.string value for this in the real app
+            int importance = NotificationManager.IMPORTANCE_HIGH; // High importance for heads-up notification
+            NotificationChannel channel = new NotificationChannel("channel_waxing", name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "channel_waxing")
+                .setSmallIcon(R.drawable.ic_activity_skiing_24dp)
+                .setContentTitle("Waxing Alert")
+                .setContentText(percentageOfWaxingInterval + "% reached of the waxing interval")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
+                .setAutoCancel(true);
+
+        //codes from ChatGPT
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+        try {
+            notificationManager.notify(notificationId, builder.build());
+        } catch (SecurityException e) {
+            // Handle the security exception
+            Log.e("Notification Error", "SecurityException: Could not display notification.", e);
+        }
+    }
+
+    // *************************************************************************************
 
     @Override
     public int getItemCount() {
