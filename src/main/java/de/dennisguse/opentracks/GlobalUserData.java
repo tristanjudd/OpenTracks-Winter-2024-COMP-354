@@ -32,11 +32,11 @@ public class GlobalUserData {
         Instant currentTime = Instant.now(); // current time default for sharpening/waxing dates
 
         sharedPreferences = context.getSharedPreferences(ID, Context.MODE_PRIVATE);
-        sharpeningInterval = sharedPreferences.getInt(SHARPENING_INTERVAL, 0);
+        sharpeningInterval = sharedPreferences.getInt(SHARPENING_INTERVAL, 1);
         baseAngle = sharedPreferences.getFloat(BASE_ANGLE, 0.0f);
         edgeAngle = sharedPreferences.getFloat(EDGE_ANGLE, 0.0f);
         lastSharpeningDate = sharedPreferences.getString(LAST_SHARPENING_DATE, currentTime.toString());
-        waxingInterval = sharedPreferences.getInt(WAXING_INTERVAL, 0);
+        waxingInterval = sharedPreferences.getInt(WAXING_INTERVAL, 1);
         waxType = sharedPreferences.getString(WAX_TYPE, "");
         lastWaxingDate = sharedPreferences.getString(LAST_WAXING_DATE, currentTime.toString());
         unit = sharedPreferences.getString(UNIT, "km");
