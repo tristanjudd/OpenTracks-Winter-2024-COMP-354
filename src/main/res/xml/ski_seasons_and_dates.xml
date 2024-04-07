@@ -21,14 +21,14 @@
                 android:icon="@drawable/ic_baseline_date_range_24"
                 android:key="dates_sesions_key"
                 android:title="24/12/2023"
-                app:summary="visit date"
+                app:summary="@string/ski_visit_date"
                 />
 
             <ListPreference
                 android:icon="@drawable/ic_activity_skiing_24dp"
                 android:key="km_key"
                 android:title="12 KM"
-                app:summary="distance" />
+                app:summary="@string/ski_distance" />
         </PreferenceCategory>
 
     <PreferenceCategory>
@@ -37,14 +37,13 @@
             android:icon="@drawable/ic_baseline_date_range_24"
             android:key="dates_sesions_key"
             android:title="25/12/2023"
-            app:summary="visit date" />
+            app:summary="@string/ski_visit_date" />
 
         <ListPreference
             android:icon="@drawable/ic_activity_skiing_24dp"
             android:key="km_key"
             android:title="13 KM"
-
-            app:summary="distance" />
+            app:summary="@string/ski_distance" />
 
     </PreferenceCategory>
     <PreferenceCategory>
@@ -53,13 +52,13 @@
             android:icon="@drawable/ic_baseline_date_range_24"
             android:key="dates_sesions_key"
             android:title="25/01/2024"
-            app:summary="visit date" />
+            app:summary="@string/ski_visit_date" />
 
         <ListPreference
             android:icon="@drawable/ic_activity_skiing_24dp"
             android:key="km_key"
             android:title="9 KM"
-            app:summary="distance" />
+            app:summary="@string/ski_distance" />
 
     </PreferenceCategory>
 

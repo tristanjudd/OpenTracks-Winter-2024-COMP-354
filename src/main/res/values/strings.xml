@@ -411,6 +411,10 @@ limitations under the License.
     <string name="ski_season_text">Ski Seasons And Dates</string>
     <string name="ski_season_year">Chose A Year</string>
     <string name="dialogue_ski_season_year">Year of the season (YYYY):</string>
+    <string name="ski_visit_date">visit date</string>
+    <string name="ski_distance">distance</string>
+
+
 
 
     <string name="settings_ski_season">Ski History</string>
