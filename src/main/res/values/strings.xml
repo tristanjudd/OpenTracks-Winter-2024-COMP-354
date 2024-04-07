@@ -409,7 +409,7 @@ limitations under the License.
     <string name="waxing_text">Waxing Information</string>
 
     <string name="ski_season_text">Ski Seasons And Dates</string>
-    <string name="ski_season_year">Chose A Year</string>
+    <string name="ski_season_year">Filter by year</string>
     <string name="dialogue_ski_season_year">Year of the season (YYYY):</string>
     <string name="ski_visit_date">visit date</string>
     <string name="ski_distance">distance</string>
