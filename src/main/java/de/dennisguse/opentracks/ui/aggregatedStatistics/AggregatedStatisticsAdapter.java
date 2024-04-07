@@ -146,9 +146,9 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         int notificationId = 1;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Sharpening channel"; // You should use a R.string value for this in the real app
-            String description = "Notifications for ski sharpening"; // You should use a R.string value for this in the real app
-            int importance = NotificationManager.IMPORTANCE_HIGH; // High importance for heads-up notification
+            CharSequence name = "Sharpening channel"; 
+            String description = "Notifications for ski sharpening";
+            int importance = NotificationManager.IMPORTANCE_HIGH; 
             NotificationChannel channel = new NotificationChannel("channel_sharpening", name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
@@ -179,9 +179,9 @@ public class AggregatedStatisticsAdapter extends RecyclerView.Adapter<RecyclerVi
         int notificationId = 2;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Waxing channel"; // You should use a R.string value for this in the real app
-            String description = "Notifications for ski waxing"; // You should use a R.string value for this in the real app
-            int importance = NotificationManager.IMPORTANCE_HIGH; // High importance for heads-up notification
+            CharSequence name = "Waxing channel"; 
+            String description = "Notifications for ski waxing"; 
+            int importance = NotificationManager.IMPORTANCE_HIGH; 
             NotificationChannel channel = new NotificationChannel("channel_waxing", name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
